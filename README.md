@@ -86,3 +86,28 @@ Result: The imported project is listed in the Project Explorer view and files ar
 **From IDE**
 
 After being done with the downloading and opening project, select **Build** option from **Product** menu. After compilation process, user can run WordSenseDisambiguation-Swift.
+
+Detailed Description
+============
+
+## Sentence
+
+In order to sense annotate a parse tree, one can use autoSemantic method of the TurkishSentenceAutoSemantic class.
+
+	let sentence = ...
+	let wordNet = WordNet();
+	let fsm = FsmMorphologicalAnalyzer();
+	let turkishAutoSemantic = TurkishSentenceAutoSemantic(wordnet, fsm)
+	turkishAutoSemantic.autoSemantic()
+
+# Cite
+
+	@INPROCEEDINGS{8093442,
+  	author={O. {Açıkgöz} and A. T. {Gürkan} and B. {Ertopçu} and O. {Topsakal} and B. {Özenç} and A. B. {Kanburoğlu} and İ. {Çam} and B. {Avar} and G. {Ercan} 		and O. T. {Yıldız}},
+  	booktitle={2017 International Conference on Computer Science and Engineering (UBMK)}, 
+  	title={All-words word sense disambiguation for Turkish}, 
+  	year={2017},
+  	volume={},
+  	number={},
+  	pages={490-495},
+  	doi={10.1109/UBMK.2017.8093442}}
