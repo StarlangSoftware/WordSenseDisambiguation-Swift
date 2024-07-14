@@ -27,7 +27,10 @@ public class MostFrequentSentenceAutoSemantic : SentenceAutoSemantic{
         self.turkishWordNet = turkishWordNet
         self.fsm = fsm
     }
-
+    
+    /// Determines the synset containing the literal with the lowest sense number.
+    /// - Parameter literals: an ArrayList of Literal objects
+    /// - Returns: the SynSet containing the literal with the lowest sense number, or null if the input list is empty
     private func mostFrequent(literals: [Literal]) -> SynSet?{
         if literals.count == 1 {
             return self.turkishWordNet.getSynSetWithId(synSetId: literals[0].getSynSetId())
@@ -43,6 +46,15 @@ public class MostFrequentSentenceAutoSemantic : SentenceAutoSemantic{
         return best
     }
     
+    /// Checks
+    /// 1. the previous two words and the current word; the previous, current and next word, current and the next
+    /// two words for a three word multiword expression that occurs in the Turkish wordnet.
+    /// 2. the previous word and current word; current word and the next word for a two word multiword expression that
+    /// occurs in the Turkish wordnet.
+    /// 3. the current word
+    /// and sets the most frequent sense for that multiword expression or word.
+    /// - Parameter sentence: The sentence for which word sense will be determined automatically.
+    /// - Returns: True, if at least one word is semantically annotated, false otherwise.
     public override func autoLabelSingleSemantics(sentence: AnnotatedSentence) -> Bool{
         var done : Bool = false
         var twoPrevious : AnnotatedWord? = nil

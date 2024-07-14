@@ -27,7 +27,14 @@ public class Lesk : SentenceAutoSemantic{
         self.turkishWordNet = turkishWordNet
         self.fsm = fsm
     }
-
+    
+    /// Calculates the number of words that occur (i) in the definition or example of the given synset and (ii) in the
+    /// given sentence.
+    /// - Parameters:
+    ///   - synSet: Synset of which the definition or example will be checked
+    ///   - sentence: Sentence to be annotated.
+    /// - Returns: The number of words that occur (i) in the definition or example of the given synset and (ii) in the given
+    /// sentence.
     private func intersection(synSet: SynSet, sentence: AnnotatedSentence) -> Int{
         var words1: [Substring]
         if synSet.getExample() != nil {
@@ -47,6 +54,14 @@ public class Lesk : SentenceAutoSemantic{
         return count
     }
     
+    /// The method annotates the word senses of the words in the sentence according to the simplified Lesk algorithm.
+    /// Lesk is an algorithm that chooses the sense whose definition or example shares the most words with the target
+    /// word’s neighborhood. The algorithm processes target words one by one. First, the algorithm constructs an array of
+    /// all possible senses for the target word to annotate. Then for each possible sense, the number of words shared
+    /// between the definition of sense synset and target sentence is calculated. Then the sense with the maximum
+    /// intersection count is selected.
+    /// - Parameter sentence: Sentence to be annotated.
+    /// - Returns: True, if at least one word is semantically annotated, false otherwise.
     public override func autoLabelSingleSemantics(sentence: AnnotatedSentence) -> Bool{
         var done : Bool = false
         for i in 0..<sentence.wordCount() {

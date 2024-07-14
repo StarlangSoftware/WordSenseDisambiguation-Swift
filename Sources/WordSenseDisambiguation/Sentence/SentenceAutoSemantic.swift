@@ -12,6 +12,17 @@ public class SentenceAutoSemantic{
      */
     public func autoLabelSingleSemantics(sentence: AnnotatedSentence) -> Bool{return true}
     
+    /// The method constructs all possible senses for the word at position index in the given sentence. The method checks
+    /// the previous two words and the current word; the previous, current and next word, current and the next
+    /// two words to add three word multiword sense (that occurs in the Turkish wordnet) to the result list. The
+    /// method then check the previous word and current word; current word and the next word to add a two word multiword
+    /// sense to the result list. Lastly, the method adds all possible senses of the current word to the result list.
+    /// - Parameters:
+    ///   - wordNet: Turkish wordnet
+    ///   - fsm: Turkish morphological analyzer
+    ///   - sentence: Sentence to be semantically disambiguated.
+    ///   - index: Position of the word to be disambiguated.
+    /// - Returns: All possible senses for the word at position index in the given sentence.
     public func getCandidateSynSets(wordNet: WordNet, fsm: FsmMorphologicalAnalyzer, sentence: AnnotatedSentence, index: Int) -> [SynSet]{
         var twoPrevious : AnnotatedWord? = nil
         var previous : AnnotatedWord? = nil
@@ -56,6 +67,8 @@ public class SentenceAutoSemantic{
         return synSets
     }
     
+    /// The method tries to semantic annotate as many words in the sentence as possible.
+    /// - Parameter sentence: Sentence to be semantically disambiguated.
     public func autoSemantic(sentence: AnnotatedSentence){
         if autoLabelSingleSemantics(sentence: sentence){
         }
